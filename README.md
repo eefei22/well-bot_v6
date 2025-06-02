@@ -32,3 +32,7 @@ WELL-BOT_V6/
 git clone https://github.com/eefei22/well-bot_v6.git
 cd WELL-BOT_V6
 ```
+
+### 2. Check out  `requirements.txt`
+* Make changes to include dependecies necessary for your own environment
+* Then `pip install -r requirements.txt`
