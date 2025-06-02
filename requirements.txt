@@ -5,6 +5,9 @@ uvicorn[standard]==0.29.0
 # Speech & Audio Processing
 opensmile==2.4.1
 kagglehub==0.2.0
+transformers==4.41.1
+torchaudio==2.3.0
+
 
 # MongoDB async driver
 motor==3.4.0

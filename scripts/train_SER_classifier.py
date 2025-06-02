@@ -9,6 +9,20 @@ from sklearn.svm import SVC
 from sklearn.pipeline import make_pipeline
 from sklearn.metrics import classification_report, confusion_matrix
 import joblib
+import threading
+import time
+
+# ========== Heartbeat Logger ==========
+
+def heartbeat(interval=300):  # 300 seconds = 5 minutes
+    while True:
+        time.sleep(interval)
+        print(f"🕒 Still training... [{time.strftime('%H:%M:%S')}]")
+
+# Start logger thread before training
+logger_thread = threading.Thread(target=heartbeat, daemon=True)
+logger_thread.start()
+
 
 # ==========
 # 📥 Load features
@@ -43,6 +57,13 @@ clf = make_pipeline(
     StandardScaler(),
     SVC(kernel="rbf", probability=True, class_weight="balanced")
 )
+
+print("🚀 Training started...")
+logger_thread = threading.Thread(target=heartbeat, daemon=True)
+logger_thread.start()
+clf.fit(X_train, y_train)
+
+
 clf.fit(X_train, y_train)
 
 # ==========

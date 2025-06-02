@@ -1,8 +1,7 @@
-# app/services/speech_emo_analysis.py
-
+import os
 import opensmile
 import numpy as np
-import pandas as pd
+import joblib
 
 class SpeechEmotionAnalyzer:
     def __init__(self):
@@ -11,28 +10,31 @@ class SpeechEmotionAnalyzer:
             feature_level=opensmile.FeatureLevel.Functionals
         )
 
-    def extract_features(self, file_path: str) -> dict:
-        """
-        Extracts acoustic features from the audio file using openSMILE.
+        # Load the trained model
+        model_path = os.path.join(os.path.dirname(__file__), 'SER_model.pkl')
+        if not os.path.exists(model_path):
+            raise FileNotFoundError(f"❌ Model file not found at {model_path}")
+        
+        model_data = joblib.load(model_path)
+        self.model = model_data['classifier']
+        self.label_encoder = model_data['label_encoder']
 
-        Args:
-            file_path (str): Path to the .wav file
-
-        Returns:
-            dict: Feature values (can be passed to a trained classifier)
-        """
+    def extract_features(self, file_path: str) -> np.ndarray:
         features_df = self.smile.process_file(file_path)
-        features_dict = features_df.iloc[0].to_dict()
-        return features_dict
+        return features_df.iloc[0].values.reshape(1, -1)
 
     def predict_emotion(self, file_path: str) -> dict:
-        """
-        Dummy prediction (you can replace with your own classifier later).
-        """
-        features = self.extract_features(file_path)
-        # Placeholder: this is where you'd pass features to your model
-        # For now, just return raw feature vector
-        return {
-            "status": "success",
-            "features": features
-        }
+        try:
+            features = self.extract_features(file_path)
+            probabilities = self.model.predict_proba(features)[0]
+            top_idx = np.argmax(probabilities)
+            predicted_label = self.label_encoder.inverse_transform([top_idx])[0]
+
+            return {
+                "emotion": predicted_label,
+                "confidence": float(probabilities[top_idx]),
+                "probabilities": dict(zip(self.label_encoder.classes_, probabilities.round(4)))
+            }
+
+        except Exception as e:
+            return {"error": str(e)}

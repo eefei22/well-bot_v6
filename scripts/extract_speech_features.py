@@ -117,9 +117,10 @@ if __name__ == "__main__":
     datasets.append(extract_dataset(
         dataset_name="tess",
         base_path="data/audio_raw/tess",
-        label_func=parse_tess_label,
-        recursive=True  # folder name = emotion
+        label_func=lambda folder: parse_tess_label(os.path.basename(folder)),  # ✅ FIX HERE
+        recursive=True
     ))
+
 
     # Combine and export
     all_data = pd.concat(datasets, ignore_index=True)
