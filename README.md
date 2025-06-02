@@ -26,28 +26,6 @@ WELL-BOT_V6/
 
 ```
 
-### Folder Purpose
-| Path                 | Purpose                                                             |
-| -------------------- | ------------------------------------------------------------------- |
-| `app/`               | Main backend codebase                                               |
-| `app/api/`           | API route handlers (e.g., `POST /emotions`)                         |
-| `app/core/`          | Loads `.env` configs & MongoDB setup                                |
-| `app/crud/`          | Business logic and DB interactions (e.g., `insert_emotion`)         |
-| `app/models/`        | Defines data schemas using Pydantic (e.g., `EmotionCreate`)         |
-| `app/services/`      | For plugins: Langroid, ML inference, etc.                  |
-| `app/main.py`        | Creates FastAPI app and binds routers                               |
-| `data/`              | Stores raw and processed datasets for emotion/speech/music analysis |
-| `data/audio_raw/`    | Unprocessed audio files (e.g., RAVDESS, TESS datasets)              |
-| `scripts/`           | Custom scripts for preprocessing, training, and inference           |
-| `test/`              | Test suite for API & logic using `pytest`                           |
-| `.env`               | Holds config (like MongoDB URI) — never commit secrets to Git!      |
-| `Dockerfile`         | Builds the FastAPI container                                        |
-| `docker-compose.yml` | Brings up FastAPI and MongoDB services together                     |
-| `requirements.txt`   | All Python package dependencies                                     |
-| `README.md`          | Developer guide and usage instructions                              |
-
-
-
 ## Getting Started
 ### 1. Clone and setup
 ```bash
