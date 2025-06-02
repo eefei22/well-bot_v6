@@ -1,6 +1,7 @@
 .vscode
 
 /data/audio_raw/
+/data/features/
 /.secrets/
 /venv/
 __pycache__/
