@@ -37,6 +37,6 @@ cd WELL-BOT_V6
 * Make changes to include dependecies necessary for your own environment
 * Then `pip install -r requirements.txt`
 
-#NOTE:
+# NOTE:
 * venv files, raw data files, large pre-trained models etc. should not be pushed into github
 * Check `.gitignore` and modify accordingly before any commits.
