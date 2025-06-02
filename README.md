@@ -1,5 +1,5 @@
 # Well-Bot_v6
-
+* FastAPI Template: [https://fastapi.tiangolo.com/project-generation/]([url](https://fastapi.tiangolo.com/project-generation/))
 ## File Directory Structure
 ```
 WELL-BOT_V6/
