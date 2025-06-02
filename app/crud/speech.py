@@ -1,6 +1,6 @@
 # app/crud/emotion.py
 from app.core.db import db
-from app.models.emotion import EmotionCreate
+from app.models.speech import EmotionCreate
 
 async def insert_emotion(data: EmotionCreate):
     collection = db["emotions"]
