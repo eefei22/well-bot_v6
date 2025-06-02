@@ -1,5 +1,8 @@
 .vscode
-node_modules/
+
+/data/audio_raw/
+/.secrets/
+
 /test-results/
 /playwright-report/
 /blob-report/

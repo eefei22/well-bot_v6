@@ -3,6 +3,7 @@ uvicorn[standard]==0.29.0
 
 #Speech Stuff
 opensmile==2.4.1
+kagglehub == 0.2.0
 
 
 

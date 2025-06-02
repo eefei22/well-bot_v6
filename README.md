@@ -3,20 +3,22 @@
 ## File Directory Structure
 ```
 WELL-BOT_V6/
-├── app/
-│   ├── api/                 # API endpoints (routes)
-│   ├── core/                # Config and MongoDB connection
-│   ├── crud/                # CRUD logic for DB operations
-│   ├── models/              # Pydantic request/response schemas
-│   ├── services/            # Future subsystems (Langroid, ML, etc.)
-│   └── main.py              # FastAPI app entry point
+├── .secrets/                # Stores secret tokens or API keys (e.g. Kaggle credentials)
+├── app/                     # Main backend application logic
+│   ├── api/                 # API route handlers (e.g. POST /speech)
+│   ├── core/                # Configuration and database initialization
+│   ├── crud/                # Business logic and DB interaction for speech data
+│   ├── models/              # Pydantic data schemas for request/response validation
+│   ├── services/            # Modular ML components: emotion, sentiment, transcription, generation
 │
-├── data/
-│   ├── audio_raw/
+├── data/                    # Local data storage
+│   └── audio_raw/           # Raw downloaded datasets for training/analysis
+│       ├── crema/           # CREMA-D dataset
+│       ├── ravdess/         # RAVDESS dataset
+│       └── tess/            # TESS dataset
 │
-├── scripts/
-│
-├── test/                    # Unit tests
+├── scripts/                 # Custom scripts (e.g., dataset downloaders, preprocessors)
+├── test/                    # Unit and integration tests for speech APIs and services
 ├── .env                     # Environment variables
 ├── Dockerfile               # Docker image definition
 ├── docker-compose.yml       # Orchestrates API + MongoDB
@@ -25,28 +27,6 @@ WELL-BOT_V6/
 
 
 ```
-
-### Folder Purpose
-| Path                 | Purpose                                                             |
-| -------------------- | ------------------------------------------------------------------- |
-| `app/`               | Main backend codebase                                               |
-| `app/api/`           | API route handlers (e.g., `POST /emotions`)                         |
-| `app/core/`          | Loads `.env` configs & MongoDB setup                                |
-| `app/crud/`          | Business logic and DB interactions (e.g., `insert_emotion`)         |
-| `app/models/`        | Defines data schemas using Pydantic (e.g., `EmotionCreate`)         |
-| `app/services/`      | For plugins: Langroid, ML inference, etc.                  |
-| `app/main.py`        | Creates FastAPI app and binds routers                               |
-| `data/`              | Stores raw and processed datasets for emotion/speech/music analysis |
-| `data/audio_raw/`    | Unprocessed audio files (e.g., RAVDESS, TESS datasets)              |
-| `scripts/`           | Custom scripts for preprocessing, training, and inference           |
-| `test/`              | Test suite for API & logic using `pytest`                           |
-| `.env`               | Holds config (like MongoDB URI) — never commit secrets to Git!      |
-| `Dockerfile`         | Builds the FastAPI container                                        |
-| `docker-compose.yml` | Brings up FastAPI and MongoDB services together                     |
-| `requirements.txt`   | All Python package dependencies                                     |
-| `README.md`          | Developer guide and usage instructions                              |
-
-
 
 ## Getting Started
 ### 1. Clone and setup
