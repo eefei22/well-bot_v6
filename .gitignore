@@ -2,6 +2,11 @@
 
 /data/audio_raw/
 /.secrets/
+/venv/
+__pycache__/
+*.py[cod]
+*.so
+
 
 /test-results/
 /playwright-report/
