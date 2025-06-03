@@ -30,6 +30,13 @@ logger_thread.start()
 
 df = pd.read_csv("data/features/emotion_features.csv")
 
+# 🔍 Check for invalid labels before training
+print("🚨 Detected emotion labels:", df["emotion"].unique())
+valid_emotions = ['angry', 'calm', 'disgust', 'fearful', 'happy', 'neutral', 'sad', 'surprised']
+df = df[df["emotion"].isin(valid_emotions)]
+
+
+
 # Drop non-feature columns
 X = df.drop(columns=["emotion", "source", "file"])
 y = df["emotion"]
