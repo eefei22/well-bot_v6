@@ -8,7 +8,7 @@ WELL-BOT_V6/
 │   ├── core/                # Config and MongoDB connection
 │   ├── crud/                # CRUD logic for DB operations
 │   ├── models/              # Pydantic request/response schemas
-│   ├── services/            # Future subsystems (Langroid, ML, etc.)
+│   ├── services/            # Machine Learning Models and Subsystems (Langroid, ML, etc.)
 │   └── main.py              # FastAPI app entry point
 │
 ├── data/
