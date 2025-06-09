@@ -14,7 +14,7 @@ WELL-BOT_V6/
 ├── data/
 │   ├── audio_raw/
 │
-├── scripts/
+├── scripts/                 # Custom training + preprocessing scripts
 │
 ├── test/                    # Unit tests
 ├── .env                     # Environment variables
