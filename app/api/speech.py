@@ -1,9 +1,10 @@
+# app/api/speech.py
 
 from fastapi import APIRouter, UploadFile, File
 from fastapi.responses import JSONResponse
 import tempfile
 import shutil
-from app.services.speech_emo_analysis import SpeechEmotionAnalyzer
+from app.services.speech_Pipeline import analyze_full
 
 router = APIRouter()
 
@@ -20,8 +21,7 @@ async def analyze_speech(file: UploadFile = File(...)):
     finally:
         file.file.close()
 
-    # Run prediction
-    analyzer = SpeechEmotionAnalyzer()
-    result = analyzer.predict_emotion(tmp_path)
+    # Run full pipeline
+    result = analyze_full(tmp_path)
 
     return result

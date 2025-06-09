@@ -2,6 +2,7 @@
 
 /data/audio_raw/
 /data/features/
+/z.Archives/
 /.secrets/
 /venv/
 __pycache__/
