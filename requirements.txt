@@ -15,7 +15,7 @@ langdetect==1.0.9
 kagglehub==0.2.0
 
 # MongoDB async driver
-motor==3.4.0
+motor==2.5.1
 
 # Environment Configuration
 pydantic==2.7.1

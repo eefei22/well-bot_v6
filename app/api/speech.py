@@ -4,7 +4,9 @@ from fastapi import APIRouter, UploadFile, File
 from fastapi.responses import JSONResponse
 import tempfile
 import shutil
-from app.services.speech_Pipeline import analyze_full
+
+from app.services.speech_ProcessingPipeline import analyze_full
+from app.services.speech_DialogueManager import generate_response
 
 router = APIRouter()
 
@@ -22,6 +24,14 @@ async def analyze_speech(file: UploadFile = File(...)):
         file.file.close()
 
     # Run full pipeline
-    result = analyze_full(tmp_path)
+    analysis_result = analyze_full(tmp_path)
 
-    return result
+    # Generate response
+    response_text = generate_response(analysis_result, extra_prompt="Keep the tone warm and supportive.")
+
+    # Return combined result
+    return {
+        "analysis_result": analysis_result,
+        "generated_response": response_text
+    }
+
