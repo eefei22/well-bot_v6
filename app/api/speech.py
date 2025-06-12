@@ -7,6 +7,7 @@ import shutil
 
 from app.services.speech_ProcessingPipeline import analyze_full
 from app.services.speech_DialogueManager import generate_response
+from app.services.speech_SpeechSynthesis import synthesize_speech
 
 router = APIRouter()
 
@@ -23,15 +24,17 @@ async def analyze_speech(file: UploadFile = File(...)):
     finally:
         file.file.close()
 
-    # Run full pipeline
+    # Analyse Speech
     analysis_result = analyze_full(tmp_path)
 
     # Generate response
     response_text = generate_response(analysis_result, extra_prompt="Keep the tone warm and supportive.")
+    tts_audio_path = synthesize_speech(response_text)
 
-    # Return combined result
+    # Return combined result:
     return {
         "analysis_result": analysis_result,
-        "generated_response": response_text
+        "generated_response": response_text,
+        "tts_audio_path": tts_audio_path
     }
 

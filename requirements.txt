@@ -14,6 +14,9 @@ protobuf==3.20.3
 langdetect==1.0.9
 kagglehub==0.2.0
 
+# TTS
+gTTS==2.3.2  # Added for fallback TTS, works on Python 3.11+
+
 # MongoDB async driver
 motor==2.5.1
 
@@ -30,4 +33,3 @@ joblib==1.4.2
 # Testing
 pytest==8.2.0
 httpx==0.27.0
-
