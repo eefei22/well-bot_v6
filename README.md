@@ -35,9 +35,17 @@ WELL-BOT_V6/
 ### `speech_ProcessingPipeline.py`
 - Main driver for full audio analysis pipeline.
 - Calls the following components in sequence:
-  - `speech_EmotionRecognition` → classify emotion from audio.
-  - `speech_Transcription` → transcribe speech to text and detect language.
-  - `speech_SentimentAnalysis` → analyze sentiment of the transcript.
+    #### `speech_EmotionRecognition.py` → classify emotion from audio.
+    - Uses **wav2vec2-based emotion classifier** (`superb/wav2vec2-base-superb-er`) to classify emotion from the uploaded `.wav` audio.
+
+    #### `speech_Transcription.py` → transcribe speech to text and detect language.
+    - Transcribes speech to text and detects language.
+    - Currently uses `voidful/wav2vec2-xlsr-multilingual-56` or **Whisper** fallback.
+    - Returns transcript text and detected language.
+
+    #### `speech_SentimentAnalysis.py` → analyze sentiment of the transcript.
+    - Analyzes sentiment of the transcript using **XLM-RoBERTa-based sentiment model** (`cardiffnlp/twitter-xlm-roberta-base-sentiment`).
+    - Returns sentiment label and confidence.
 
 ### `speech_DialogueManager.py`
 - Generates a warm and supportive response using the **DeepSeek API** (LLM chat API).
@@ -49,58 +57,29 @@ WELL-BOT_V6/
 - Automatically selects language based on detected speech language.
 - Returns the path to the generated audio file.
 
-### `speech_EmotionRecognition.py`
-- Uses **wav2vec2-based emotion classifier** (`superb/wav2vec2-base-superb-er`) to classify emotion from the uploaded `.wav` audio.
-
-### `speech_Transcription.py`
-- Transcribes speech to text and detects language.
-- Currently uses `voidful/wav2vec2-xlsr-multilingual-56` or **Whisper** fallback.
-- Returns transcript text and detected language.
-
-### `speech_SentimentAnalysis.py`
-- Analyzes sentiment of the transcript using **XLM-RoBERTa-based sentiment model** (`cardiffnlp/twitter-xlm-roberta-base-sentiment`).
-- Returns sentiment label and confidence.
-
 # Models Used
-## Emotion Recognition
-- **Model**: `superb/wav2vec2-base-superb-er`
-- **Framework**: HuggingFace Transformers
-- **Purpose**: Classify speech emotion with confidence.
+### **Emotion Recognition**
+- Model: `superb/wav2vec2-base-superb-er`
+- Framework: HuggingFace Transformers
+- Purpose: Classify speech emotion with confidence scores.
 
-## Transcription
-- **Model**: `voidful/wav2vec2-xlsr-multilingual-56` (planned) or **Whisper** fallback.
-- **Framework**: HuggingFace Transformers
-- **Purpose**: Transcribe audio to text and detect language.
+### **Transcription**
+- Model: `voidful/wav2vec2-xlsr-multilingual-56` (planned) or **Whisper** fallback.
+- Framework: HuggingFace Transformers
+- Purpose: Transcribe audio to text and detect language.
 
-## Sentiment Analysis
-- **Model**: `cardiffnlp/twitter-xlm-roberta-base-sentiment`
-- **Framework**: HuggingFace Transformers
-- **Purpose**: Classify sentiment polarity of transcript text.
+### **Sentiment Analysis**
+- Model: `cardiffnlp/twitter-xlm-roberta-base-sentiment`
+- Framework: HuggingFace Transformers
+- Purpose: Classify sentiment polarity of transcript text.
 
-## Dialogue Manager
-- **Model**: DeepSeek API → `deepseek-chat`
-- **Framework**: External API (OpenAI-compatible)
-- **Purpose**: Generate warm and supportive responses based on emotion, sentiment, and transcript.
+### **Dialogue Manager**
+- Model: DeepSeek API → `deepseek-chat`
+- Framework: External API (OpenAI-compatible)
+- Purpose: Generate warm and supportive responses based on emotion, sentiment, and transcript.
 
-## Speech Synthesis
-- **Model**: `gTTS` (Google Text-to-Speech)
-- **Framework**: gTTS Python library
-- **Purpose**: Convert generated response text to speech (MP3), supports `en`, `id`, `ms`.
+### **Speech Synthesis**
+- Model: `gTTS` (Google Text-to-Speech)
+- Framework: gTTS Python library
+- Purpose: Convert generated response text to speech (MP3), supports `en`, `id`, `ms`.
 
-## Sample API Response
-
-Example JSON returned by `/analyze-speech` endpoint:
-
-```json
-{
-  "analysis_result": {
-    "emotion": "ang",
-    "emotion_confidence": 0.5964024066925049,
-    "transcript": " Ini satu lagi perangai tak elok.",
-    "language": "id",
-    "sentiment": "negative",
-    "sentiment_confidence": 0.8975903987884521
-  },
-  "generated_response": "I hear the frustration in your words, and I want you to know that your feelings are completely valid. It sounds like you're dealing with something really challenging right now. Would you like to talk more about what's bothering you? I'm here to listen and support you in any way I can. Remember, it's okay to feel upset—you're not alone in this.",
-  "tts_audio_path": "data/tts_output/tts_output_xxxxxxxxxxxxxxxx.mp3"
-}
