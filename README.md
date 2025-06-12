@@ -40,7 +40,7 @@ WELL-BOT_V6/
 
     #### `speech_Transcription.py` → transcribe speech to text and detect language.
     - Transcribes speech to text and detects language.
-    - Currently uses `voidful/wav2vec2-xlsr-multilingual-56` or **Whisper** fallback.
+    - Currently uses `openai/whisper-small`.
     - Returns transcript text and detected language.
 
     #### `speech_SentimentAnalysis.py` → analyze sentiment of the transcript.
