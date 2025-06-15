@@ -64,7 +64,7 @@ WELL-BOT_V6/
 - Purpose: Classify speech emotion with confidence scores.
 
 ### **Transcription**
-- Model: `voidful/wav2vec2-xlsr-multilingual-56` (planned) or **Whisper** fallback.
+- Model: `openai/whisper-small`.
 - Framework: HuggingFace Transformers
 - Purpose: Transcribe audio to text and detect language.
 
