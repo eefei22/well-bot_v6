@@ -13,6 +13,7 @@ DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions"
 SYSTEM_PROMPT = """You are Well-Bot, a friendly and empathetic emotional support robot. You respond to users based on detected emotions and speech, helping them feel heard and supported."""
 
 USER_PROMPT_TEMPLATE = """
+Do not use emojis.
 Provide a friendly and empathetic response to the user based on the following analysis:
 
 Transcript: "{transcript}"
